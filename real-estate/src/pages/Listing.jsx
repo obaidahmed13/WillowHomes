@@ -16,6 +16,7 @@ import {
   } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import Contact from '../components/Contact';
+import Map from '../components/Map';
 
 export default function Listing() {
     SwiperCore.use([Navigation])
@@ -86,7 +87,7 @@ export default function Listing() {
             </p>
             <p className='flex items-center mt-6 gap-2 text-slate-600  text-sm'>
               <FaMapMarkerAlt className='text-blue-600' />
-              {listing.address}
+              {listing.address}, {listing.city}, {listing.country}
             </p>
             <div className='flex gap-4'>
               <p className='bg-red-600 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
@@ -122,7 +123,10 @@ export default function Listing() {
                 {listing.furnished ? 'Furnished' : 'Unfurnished'}
               </li>
             </ul>
-            {currentUser && listing.userRef == currentUser._id && !contact && (
+            <div className='mb-3'>
+              <Map address={listing?.address} city={listing?.city} country={listing?.country}/>
+            </div>
+            {currentUser && listing.userRef != currentUser._id && !contact && (
                 <button
                     onClick={()=> setContact(true)} 
                     className='bg-slate-700 text-white rounded-lg 
